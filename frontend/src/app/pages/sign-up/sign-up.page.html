@@ -1,0 +1,169 @@
+<ion-content [fullscreen]="true">
+  <ion-row class="center">
+    <ion-col size="12" size="4">
+      <ion-card color="light" class="br-20">
+        <ion-card-content class="p20">
+          <ion-row>
+            <ion-col size="12" class="text-center">
+              <img class="logo" src="assets/logo.png" alt="Logo" />
+            </ion-col>
+            <ion-col size="12" class="text-center title p10">
+              <ion-label>CADASTRAR-SE</ion-label>
+            </ion-col>
+            <ion-col size="12">
+              <ion-row *ngIf="!type">
+                <ion-col size="'12" size-md="6">
+                  <ion-card
+                    color="tertiary"
+                    button
+                    (click)="changeType('empresa')"
+                  >
+                    <ion-card-content>Empresa</ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="'12" size-md="6">
+                  <ion-card
+                    color="tertiary"
+                    button
+                    (click)="changeType('candidato')"
+                  >
+                    <ion-card-content>Candidato</ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="type === 'candidato'">
+                <ion-col size="12" class="text-center title p10">
+                  <ion-button
+                    (click)="changeType(null)"
+                    fill="clear"
+                    color="dark"
+                    class="back-button m0"
+                  >
+                    <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+                  </ion-button>
+                  <ion-label>CANDIDATO</ion-label>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-input
+                    type="text"
+                    placeholder="Nome"
+                    [(ngModel)]="user.nome"
+                  >
+                    <ion-icon slot="start" name="person"></ion-icon>
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-input
+                    type="email"
+                    placeholder="E-mail"
+                    [(ngModel)]="user.email"
+                  >
+                    <ion-icon slot="start" name="mail"></ion-icon>
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-input
+                    type="password"
+                    placeholder="Senha"
+                    [(ngModel)]="senha"
+                  >
+                    <ion-icon slot="start" name="lock-closed"></ion-icon>
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-button
+                    class="m0"
+                    expand="block"
+                    fill="solid"
+                    shape="round"
+                    color="primary"
+                    (click)="signUp()"
+                  >
+                    <ion-label class="text-bold">CADASTRAR</ion-label>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="type === 'empresa'">
+                <ion-col size="12" class="text-center title p10">
+                  <ion-button
+                    (click)="changeType(null)"
+                    fill="clear"
+                    color="dark"
+                    class="back-button m0"
+                  >
+                    <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+                  </ion-button>
+                  <ion-label>CANDIDATO</ion-label>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-input
+                    type="text"
+                    placeholder="Nome"
+                    [(ngModel)]="user.nome"
+                  >
+                    <ion-icon slot="start" name="person"></ion-icon>
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-input
+                    type="email"
+                    placeholder="E-mail"
+                    [(ngModel)]="user.email"
+                  >
+                    <ion-icon slot="start" name="mail"></ion-icon>
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-input
+                    type="text"
+                    placeholder="Ramo"
+                    [(ngModel)]="user.ramo"
+                  >
+                    <ion-icon slot="start" name="person"></ion-icon>
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-textarea
+                    rows="3"
+                    type="text"
+                    placeholder="Descrição"
+                    [(ngModel)]="user.descricao"
+                  >
+                    <ion-icon slot="start" name="text"></ion-icon>
+                  </ion-textarea>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-input
+                    type="password"
+                    placeholder="Senha"
+                    [(ngModel)]="senha"
+                  >
+                    <ion-icon slot="start" name="lock-closed"></ion-icon>
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" class="p10">
+                  <ion-button
+                    class="m0"
+                    expand="block"
+                    fill="solid"
+                    shape="round"
+                    color="primary"
+                    (click)="signUp()"
+                  >
+                    <ion-label class="text-bold">CADASTRAR</ion-label>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col size="12" class="p10 text-center">
+              <ion-label
+                >Já tem uma conta?
+                <a [routerLink]="['/login']">Entrar</a></ion-label
+              >
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
