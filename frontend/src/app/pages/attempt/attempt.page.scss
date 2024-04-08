@@ -1,0 +1,40 @@
+ion-content {
+  --background: unset;
+  background: linear-gradient(
+    -45deg,
+    var(--ion-color-primary),
+    var(--ion-color-secondary),
+    var(--ion-color-tertiary)
+  );
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.center {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.block-spinner {
+  text-align: center;
+  background: var(--ion-color-light);
+  color: var(--ion-color-white);
+  padding: 20px;
+  border-radius: 10px;
+}

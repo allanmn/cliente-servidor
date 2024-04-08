@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCandidateRequest;
 use App\Http\Requests\UserCompanyRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -69,5 +70,18 @@ class UserController extends Controller
             ],
             201
         );
+    }
+
+    public function getMe()
+    {
+        $user = auth('api')->user();
+
+        if (!$user) {
+            return response()->json([
+                'mensagem' => 'Não foi possível autenticar o usuário.',
+            ], 401);
+        }
+
+        return new UserResource($user);
     }
 }

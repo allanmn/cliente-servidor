@@ -27,8 +27,8 @@ export class BaseService {
 
   get get_tokens() {
     return {
-      params: {
-        token: this.api_token_value,
+      headers: {
+        Authorization: `Bearer ${this.api_token_value}`,
       },
     };
   }

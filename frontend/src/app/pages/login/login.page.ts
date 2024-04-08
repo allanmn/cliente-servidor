@@ -3,6 +3,7 @@ import { MenuController, ViewWillEnter } from '@ionic/angular';
 import { HelperService } from '../../services/helper.service';
 import { UserService } from '../../services/user.service';
 import { Md5 } from 'ts-md5';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit, ViewWillEnter {
   constructor(
     private menuCtrl: MenuController,
     private helperService: HelperService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,13 @@ export class LoginPage implements OnInit, ViewWillEnter {
       })
       .then(
         (response) => {
-          console.log(response);
+          if (response.token) {
+            this.userService.setApiToken(response.token);
+            this.router.navigate(['/attempt']);
+          } else {
+            this.helperService.toast('Erro com token', 'danger');
+          }
+          this.helperService.loading_dismiss();
         },
         (error) => {
           this.helperService.loading_dismiss();

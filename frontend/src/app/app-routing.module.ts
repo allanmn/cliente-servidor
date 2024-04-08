@@ -11,7 +11,18 @@ const routes: Routes = [
   },
   {
     path: 'sign-up',
-    loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+    loadChildren: () =>
+      import('./pages/sign-up/sign-up.module').then((m) => m.SignUpPageModule),
+  },
+  {
+    path: 'attempt',
+    loadChildren: () =>
+      import('./pages/attempt/attempt.module').then((m) => m.AttemptPageModule),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./pages/dashboard/dashboard.module').then((m) => m.DashboardPageModule),
   },
 ];
 

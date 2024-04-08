@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureTokenIsValid;
 use App\Http\Middleware\JsonResponseMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->api(append: [
             JsonResponseMiddleware::class,
+        ]);
+        $middleware->appendToGroup('auth', [
+            EnsureTokenIsValid::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

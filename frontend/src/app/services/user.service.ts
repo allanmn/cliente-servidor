@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { BaseService } from './base.service';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,7 @@ export class UserService extends BaseService {
   signUpCandidato(user: User): Promise<any> {
     return firstValueFrom(
       this.http.post(
-        this.api_url + '/' + 'usuarios/candidato',
+        this.api_url + '/usuarios/candidato',
         user.create_candidato_data
       )
     );
@@ -38,9 +38,15 @@ export class UserService extends BaseService {
   signUpEmpresa(user: User): Promise<any> {
     return firstValueFrom(
       this.http.post(
-        this.api_url + '/' + 'usuarios/empresa',
+        this.api_url + '/usuarios/empresa',
         user.create_empresa_data
       )
+    );
+  }
+
+  getMe(): Promise<any> {
+    return firstValueFrom(
+      this.http.get(this.api_url + '/usuario', this.get_tokens)
     );
   }
 
@@ -58,13 +64,9 @@ export class UserService extends BaseService {
     }
   }
 
-  setUser(data: any, callback: any) {
-    if (data.token) {
-      this.setApiToken(data.token);
-    }
-
-    if (data.user) {
-      this.user = new User(data.user);
+  setUser(data: any, callback: any = null) {
+    if (data) {
+      this.user = new User(data);
     }
 
     if (callback) {

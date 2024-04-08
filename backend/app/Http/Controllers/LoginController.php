@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\Token;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
@@ -33,6 +34,19 @@ class LoginController extends Controller
 
         return response()->json([
             'token' => $token,
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $token = $request->bearerToken();
+
+        auth('api')->logout();
+
+        Token::where('token', $token)->delete();
+
+        return response()->json([
+            'mensagem' => 'Logout realizado com sucesso.',
         ]);
     }
 }
