@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { BaseService } from './base.service';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-import { first, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,9 @@ export class UserService extends BaseService {
   router: Router;
   url: 'usuarios';
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector, router: Router) {
     super(injector);
+    this.router = router;
   }
 
   get isLoggedIn() {
@@ -47,6 +48,12 @@ export class UserService extends BaseService {
   getMe(): Promise<any> {
     return firstValueFrom(
       this.http.get(this.api_url + '/usuario', this.get_tokens)
+    );
+  }
+
+  logoutRequest(): Promise<any> {
+    return firstValueFrom(
+      this.http.post(this.api_url + '/logout', {}, this.get_tokens)
     );
   }
 
