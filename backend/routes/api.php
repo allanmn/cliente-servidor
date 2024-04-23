@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobSectorsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\UserController;
@@ -16,3 +17,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware(['api', '
 
 // CompetÊncias
 Route::get('/competencias', [SkillsController::class, 'index'])->middleware('api', 'auth');
+
+// Ramos
+Route::get('/ramos', [JobSectorsController::class, 'index'])->middleware('api', 'auth');
