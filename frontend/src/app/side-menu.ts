@@ -4,6 +4,10 @@ declare interface RouteInfo {
   icon: string;
 }
 
-export const CandidatoItems: RouteInfo[] = [];
+export const CandidatoItems: RouteInfo[] = [
+  { path: '/user', title: 'Usuário', icon: 'user' },
+];
 
-export const EmpresaItems: RouteInfo[] = [];
+export const EmpresaItems: RouteInfo[] = [
+  { path: '/user', title: 'Usuário', icon: 'user' },
+];

@@ -23,11 +23,11 @@ export class LoginPage implements OnInit, ViewWillEnter {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
-
-  ionViewWillEnter() {}
 
   login() {
     if (!this.credentials.email || this.credentials.email == '') {

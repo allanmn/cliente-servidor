@@ -29,6 +29,7 @@ export class BaseService {
     return {
       headers: {
         Authorization: `Bearer ${this.api_token_value}`,
+        'ngrok-skip-browser-warning': '69420',
       },
     };
   }

@@ -17,7 +17,7 @@ class UserController extends Controller
         if ($user) {
             return response()->json(
                 [
-                    'message' => 'E-mail já utilizado.',
+                    'mensagem' => 'E-mail já utilizado.',
                 ],
                 422
             );
@@ -34,7 +34,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'message' => 'Usuário cadastrado com sucesso',
+                'mensagem' => 'Usuário cadastrado com sucesso',
             ],
             201
         );
@@ -47,7 +47,7 @@ class UserController extends Controller
         if ($user) {
             return response()->json(
                 [
-                    'message' => 'E-mail já utilizado.',
+                    'mensagem' => 'E-mail já utilizado.',
                 ],
                 422
             );
@@ -66,7 +66,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'message' => 'Usuário cadastrado com sucesso',
+                'mensagem' => 'Usuário cadastrado com sucesso',
             ],
             201
         );

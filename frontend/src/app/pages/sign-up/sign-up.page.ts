@@ -26,12 +26,12 @@ export class SignUpPage implements OnInit, ViewWillEnter {
   ) {}
 
   ngOnInit() {
-    this.menuController.enable(false);
   }
 
   ionViewWillEnter(): void {
     this.type = null;
     this.senha = null;
+    this.menuController.enable(false);
   }
 
   changeType(type: string) {
@@ -47,10 +47,11 @@ export class SignUpPage implements OnInit, ViewWillEnter {
       this.userService.signUpEmpresa(this.user).then(
         (response) => {
           this.helperService.loading_dismiss();
-          this.helperService.toast(response.message);
+          this.helperService.toast(response.mensagem);
           this.router.navigate(['/login']);
         },
         (error) => {
+          console.log(error)
           this.helperService.loading_dismiss();
           this.helperService.responseErrors(error);
         }
@@ -63,10 +64,11 @@ export class SignUpPage implements OnInit, ViewWillEnter {
       this.userService.signUpCandidato(this.user).then(
         (response) => {
           this.helperService.loading_dismiss();
-          this.helperService.toast(response.message);
+          this.helperService.toast(response.mensagem);
           this.router.navigate(['/login']);
         },
         (error) => {
+          console.log(error)
           this.helperService.loading_dismiss();
           this.helperService.responseErrors(error);
         }
