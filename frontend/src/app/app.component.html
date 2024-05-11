@@ -17,26 +17,25 @@
         </ion-row>
 
         <ion-list id="inbox-list">
-          <!-- <ion-menu-toggle
+          <ion-menu-toggle
             auto-hide="false"
             *ngFor="let p of appPages; let i = index"
           >
             <ion-item
+              button
+              routerLinkActive="selected"
               routerDirection="root"
-              [routerLink]="[p.url]"
-              lines="none"
-              detail="false"
+              [routerLink]="[p.path]"
               routerLinkActive="selected"
             >
               <ion-icon
                 aria-hidden="true"
                 slot="start"
-                [ios]="p.icon + '-outline'"
-                [md]="p.icon + '-sharp'"
+                [name]="p.icon"
               ></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
-          </ion-menu-toggle> -->
+          </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item button routerLinkActive="selected" (click)="logoff()">
               <ion-icon

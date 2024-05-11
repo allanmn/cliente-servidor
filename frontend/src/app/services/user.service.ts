@@ -2,12 +2,14 @@ import { Injectable, Injector } from '@angular/core';
 import { BaseService } from './base.service';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends BaseService {
+  user_logged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public user_logged$ = this.user_logged.asObservable();
   user: User = null;
   router: Router;
   url: 'usuarios';
@@ -30,7 +32,7 @@ export class UserService extends BaseService {
   signUpCandidato(user: User): Promise<any> {
     return firstValueFrom(
       this.http.post(
-        this.api_url + '/usuarios/candidato',
+        this.api_url + '/usuarios/candidatos',
         user.create_candidato_data
       )
     );
@@ -48,6 +50,18 @@ export class UserService extends BaseService {
   getMe(): Promise<any> {
     return firstValueFrom(
       this.http.get(this.api_url + '/usuario', this.get_tokens)
+    );
+  }
+
+  updateMe(user: User): Promise<any> {
+    return firstValueFrom(
+      this.http.put(this.api_url + '/usuario', user.update_me, this.get_tokens)
+    );
+  }
+
+  deleteMe(): Promise<any> {
+    return firstValueFrom(
+      this.http.delete(this.api_url + '/usuario', this.get_tokens)
     );
   }
 
@@ -74,6 +88,8 @@ export class UserService extends BaseService {
   setUser(data: any, callback: any = null) {
     if (data) {
       this.user = new User(data);
+
+      this.user_logged.next(true);
     }
 
     if (callback) {

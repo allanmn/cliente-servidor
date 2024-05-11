@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 // Usuários
 Route::get('/usuario', [UserController::class, 'getMe'])->middleware(['api', 'auth']);
-Route::post('/usuarios/candidato', [UserController::class, 'createCandidate'])->middleware(['api']);
+Route::post('/usuarios/candidatos', [UserController::class, 'createCandidate'])->middleware(['api']);
 Route::post('/usuarios/empresa', [UserController::class, 'createCompany'])->middleware(['api']);
+Route::put('/usuario', [UserController::class, 'updateMe']);
+Route::delete('/usuario', [UserController::class, 'deleteMe']);
 
 //login
 Route::post('/login', [LoginController::class, 'login'])->middleware('api');

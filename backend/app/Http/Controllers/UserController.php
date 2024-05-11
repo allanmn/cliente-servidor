@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserCandidateRequest;
 use App\Http\Requests\UserCompanyRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -83,5 +85,57 @@ class UserController extends Controller
         }
 
         return new UserResource($user);
+    }
+
+    public function updateMe(UpdateUserRequest $request)
+    {
+        $user = auth('api')->user();
+
+        if (isset($request->nome)) {
+            $user->nome = $request->nome;
+        }
+
+        if (isset($request->email)) {
+            $user->email = $request->email;
+        }
+
+        if (isset($request->senha)) {
+            $user->senha = Hash::make($request->senha);
+        }
+
+        if ($user->tipo === 'empresa') {
+            if (isset($request->ramo)) {
+                $user->ramo = $request->ramo;
+            }
+
+            if (isset($request->descricao)) {
+                $user->descricao = $request->descricao;
+            }
+        }
+
+        $user->save();
+
+        return response()->json([
+            'mensagem' => 'Usuário atualizado com sucesso!',
+        ]);
+    }
+
+    public function deleteMe()
+    {
+        $user = auth('api')->user();
+
+        if (!$user) {
+            return response()->json([
+                'mensagem' => 'Não foi possível autenticar o usuário.',
+            ], 401);
+        }
+
+        $user->tokens()->delete();
+
+        $user->delete();
+
+        return response()->json([
+            'mensagem' => "Usuário apagado com sucesso",
+        ], 200);
     }
 }

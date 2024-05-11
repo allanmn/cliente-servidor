@@ -5,9 +5,10 @@ declare interface RouteInfo {
 }
 
 export const CandidatoItems: RouteInfo[] = [
-  { path: '/user', title: 'Usuário', icon: 'user' },
+  { path: '/user', title: 'Usuário', icon: 'person' },
 ];
 
 export const EmpresaItems: RouteInfo[] = [
-  { path: '/user', title: 'Usuário', icon: 'user' },
+  { path: '/user', title: 'Vagas', icon: 'briefcase' },
+  { path: '/user', title: 'Usuário', icon: 'person' },
 ];

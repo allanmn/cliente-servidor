@@ -71,4 +71,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Experience::class, 'user_id');
     }
+
+    public function tokens()
+    {
+        return $this->hasMany(Token::class, 'user_id');
+    }
 }

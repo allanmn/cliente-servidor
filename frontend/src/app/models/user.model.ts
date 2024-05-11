@@ -42,8 +42,28 @@ export class User {
       nome: this.nome,
       email: this.email,
       senha: this.senha,
-      ramo: this.descricao,
+      ramo: this.ramo,
       descricao: this.descricao,
+    };
+  }
+
+  get update_me() {
+    if (this.tipo === 'empresa') {
+      return {
+        nome: this.nome,
+        email: this.email,
+        senha: this.senha,
+        ramo: this.ramo,
+        descricao: this.descricao,
+      };
+    }
+
+    return {
+      nome: this.nome,
+      email: this.email,
+      senha: this.senha,
+      competencias: [],
+      experiencia: [],
     };
   }
 }
