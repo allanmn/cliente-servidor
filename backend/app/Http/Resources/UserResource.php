@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             $fields['ramo'] = $this->ramo;
             $fields['descricao'] = $this->descricao;
         } else {
-            $fields['competencias'] = [];
+            $fields['competencias'] = SkillResource::collection($this->whenLoaded('skills'));
             $fields['experiencia'] = [];
         }
 

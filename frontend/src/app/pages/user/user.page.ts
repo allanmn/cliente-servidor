@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertButton, MenuController, ViewWillEnter } from '@ionic/angular';
+import {
+  AlertButton,
+  MenuController,
+  ModalController,
+  ViewWillEnter,
+} from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
+import { SelectMultipleComponent } from 'src/app/components/select-multiple/select-multiple.component';
+import { Skill } from 'src/app/models/skill.model';
 import { User } from 'src/app/models/user.model';
 import { HelperService } from 'src/app/services/helper.service';
+import { SkillService } from 'src/app/services/skills.service';
 import { UserService } from 'src/app/services/user.service';
 import { Md5 } from 'ts-md5';
 
@@ -14,6 +22,8 @@ import { Md5 } from 'ts-md5';
 export class UserPage implements OnInit, ViewWillEnter {
   user: User;
   private ngUnsubscriber = new Subject<void>();
+
+  skills: Array<Skill> = [];
 
   senha: string;
 
@@ -35,7 +45,9 @@ export class UserPage implements OnInit, ViewWillEnter {
   constructor(
     private menuController: MenuController,
     private userService: UserService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private modalController: ModalController,
+    private skillService: SkillService
   ) {
     this.userService.user_logged$
       .pipe(takeUntil(this.ngUnsubscriber))
@@ -51,6 +63,39 @@ export class UserPage implements OnInit, ViewWillEnter {
 
   ionViewWillEnter() {
     this.user = this.userService.user;
+
+    this.getSkills();
+  }
+
+  getSkills() {
+    this.skillService.get().then(
+      (response) => {
+        this.skills = response.map((s) => new Skill(s));
+      },
+      (error) => {
+        this.helperService.responseErrors(error);
+      }
+    );
+  }
+
+  async selectSkills() {
+    const modal = await this.modalController.create({
+      component: SelectMultipleComponent,
+      componentProps: {
+        title: 'Competências',
+        s: this.user.competencias.map((s) => s.id),
+        options: this.skills,
+        acessor: 'nome',
+      },
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if (data) {
+      this.user.competencias = this.skills.filter((s) => data.includes(s.id));
+    }
   }
 
   save() {

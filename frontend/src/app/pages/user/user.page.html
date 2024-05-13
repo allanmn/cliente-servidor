@@ -51,6 +51,27 @@
               >
               </ion-input>
             </ion-col>
+            <ng-container *ngIf="user.tipo === 'candidato'">
+              <ion-col size="12" size-md="6">
+                <ion-label class="input-label"> Competências </ion-label>
+                <ion-item
+                  mode="md"
+                  class="input-select"
+                  lines="none"
+                  (click)="selectSkills()"
+                >
+                  <ion-text *ngIf="user.competencias.length == 0">
+                    Selecione uma ou mais competências
+                  </ion-text>
+                  <ion-badge
+                    color="primary"
+                    class="p5 mr-5"
+                    *ngFor="let skill of user.competencias"
+                    >{{ skill.nome }}</ion-badge
+                  >
+                </ion-item>
+              </ion-col>
+            </ng-container>
             <ng-container *ngIf="user.tipo === 'empresa'">
               <ion-col size="12" size-md="6">
                 <ion-label class="input-label"> Ramo </ion-label>
@@ -75,37 +96,37 @@
               </ion-col>
             </ng-container>
           </ion-row>
-          <ion-row>
-            <ion-col size="12">
-              <ion-button
-                class="m0"
-                fill="solid"
-                shape="round"
-                color="success"
-                (click)="save()"
-              >
-                <ion-label class="text-bold">SALVAR</ion-label>
-              </ion-button>
-              <ion-button
-                id="delete"
-                class="m0 ml-10"
-                fill="solid"
-                shape="round"
-                color="danger"
-              >
-                <ion-label class="text-bold">APAGAR</ion-label>
-              </ion-button>
-              <ion-alert
-                mode="ios"
-                trigger="delete"
-                header="Essa ação é irreversível"
-                message="Tem certeza que deseja apagar seu usuário?"
-                [buttons]="alertButtons"
-              ></ion-alert>
-            </ion-col>
-          </ion-row>
         </ion-card-content>
       </ion-card>
     </ion-col>
+    <ion-row style="padding: 0px 10px">
+      <ion-col size="12">
+        <ion-button
+          class="m0"
+          fill="solid"
+          shape="round"
+          color="success"
+          (click)="save()"
+        >
+          <ion-label class="text-bold">SALVAR</ion-label>
+        </ion-button>
+        <ion-button
+          id="delete"
+          class="m0 ml-10"
+          fill="solid"
+          shape="round"
+          color="danger"
+        >
+          <ion-label class="text-bold">APAGAR</ion-label>
+        </ion-button>
+        <ion-alert
+          mode="ios"
+          trigger="delete"
+          header="Essa ação é irreversível"
+          message="Tem certeza que deseja apagar seu usuário?"
+          [buttons]="alertButtons"
+        ></ion-alert>
+      </ion-col>
+    </ion-row>
   </ion-row>
 </ion-content>

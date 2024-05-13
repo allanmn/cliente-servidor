@@ -84,6 +84,8 @@ class UserController extends Controller
             ], 401);
         }
 
+        $user->load('skills');
+
         return new UserResource($user);
     }
 
@@ -110,6 +112,10 @@ class UserController extends Controller
 
             if (isset($request->descricao)) {
                 $user->descricao = $request->descricao;
+            }
+        } else if ($user->tipo === 'candidato') {
+            if (isset($request->competencias)) {
+                $user->skills()->sync(array_map(fn($skill) => $skill['id'], $request->competencias));
             }
         }
 

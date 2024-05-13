@@ -45,8 +45,17 @@ ion-textarea {
   --highlight-color-valid: none !important;
 }
 
+.input-select {
+  background-color: var(--ion-color-light);
+  border-radius: 1rem;
+}
+
 .m0 {
   margin: 0 !important;
+}
+
+.mr-5 {
+  margin-right: 5px;
 }
 
 .ml-10 {

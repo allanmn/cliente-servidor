@@ -1,3 +1,5 @@
+import { Skill } from './skill.model';
+
 export class User {
   id: number;
   nome: string;
@@ -7,6 +9,8 @@ export class User {
   descricao: string;
   tipo: string;
 
+  competencias: Skill[] = [];
+
   constructor({
     id = null,
     nome = null,
@@ -15,6 +19,7 @@ export class User {
     ramo = null,
     descricao = null,
     tipo = null,
+    competencias = [],
   }) {
     this.id = id;
     this.nome = nome;
@@ -23,6 +28,7 @@ export class User {
     this.ramo = ramo;
     this.descricao = descricao;
     this.tipo = tipo;
+    this.competencias = competencias;
   }
 
   get is_company(): boolean {
@@ -62,7 +68,7 @@ export class User {
       nome: this.nome,
       email: this.email,
       senha: this.senha,
-      competencias: [],
+      competencias: this.competencias.map((c) => c.request_data),
       experiencia: [],
     };
   }

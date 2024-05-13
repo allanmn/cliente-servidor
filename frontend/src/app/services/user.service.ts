@@ -87,6 +87,7 @@ export class UserService extends BaseService {
 
   setUser(data: any, callback: any = null) {
     if (data) {
+      console.log(data);
       this.user = new User(data);
 
       this.user_logged.next(true);
