@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserCandidateRequest;
 use App\Http\Requests\UserCompanyRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Experience;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -84,7 +85,7 @@ class UserController extends Controller
             ], 401);
         }
 
-        $user->load('skills');
+        $user->load('skills', 'experiences');
 
         return new UserResource($user);
     }
@@ -116,6 +117,64 @@ class UserController extends Controller
         } else if ($user->tipo === 'candidato') {
             if (isset($request->competencias)) {
                 $user->skills()->sync(array_map(fn($skill) => $skill['id'], $request->competencias));
+            }
+
+            if (isset($request->experiencia)) {
+                $ids = [];
+
+                foreach ($request->experiencia as $exp) {
+                    if (isset($exp['id'])) {
+                        $expModel = Experience::findOrFail($exp['id']);
+
+                        if (isset($exp['nome_empresa'])) {
+                            $expModel->nome_empresa = $exp['nome_empresa'];
+                        }
+
+                        if (isset($exp['cargo'])) {
+                            $expModel->cargo = $exp['cargo'];
+                        }
+
+                        if (isset($exp['inicio'])) {
+                            $expModel->inicio = $exp['inicio'];
+                        }
+
+                        if (isset($exp['fim'])) {
+                            $expModel->fim = $exp['fim'];
+                        }
+
+                        $expModel->save();
+
+                        $ids[] = $expModel->id;
+                    } else {
+                        $expModel = new Experience;
+
+                        if (isset($exp['nome_empresa'])) {
+                            $expModel->nome_empresa = $exp['nome_empresa'];
+                        }
+
+                        if (isset($exp['cargo'])) {
+                            $expModel->cargo = $exp['cargo'];
+                        }
+
+                        if (isset($exp['inicio'])) {
+                            $expModel->inicio = $exp['inicio'];
+                        }
+
+                        if (isset($exp['fim'])) {
+                            $expModel->fim = $exp['fim'];
+                        }
+
+                        $expModel->user_id = $user->id;
+
+                        $expModel->save();
+
+                        $ids[] = $expModel->id;
+                    }
+                }
+
+                Experience::where('user_id', $user->id)
+                ->whereNotIn('id', $ids)
+                ->delete();
             }
         }
 

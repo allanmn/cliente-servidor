@@ -1,0 +1,22 @@
+.exp-header {
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+
+  span {
+    font-size: 1rem;
+  }
+}
+
+.exp-container {
+  row-gap: 15px;
+}
+
+ion-datetime-button::part(native) {
+  width: 100%;
+  padding: 10px;
+  border-radius: 1rem;
+  text-align: left;
+}

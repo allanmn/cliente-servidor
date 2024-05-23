@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { SelectMultipleComponent } from 'src/app/components/select-multiple/select-multiple.component';
+import { Experience } from 'src/app/models/experience.model';
 import { Skill } from 'src/app/models/skill.model';
 import { User } from 'src/app/models/user.model';
 import { HelperService } from 'src/app/services/helper.service';
@@ -67,6 +68,10 @@ export class UserPage implements OnInit, ViewWillEnter {
     this.getSkills();
   }
 
+  addExperience() {
+    this.user.experiencia.push(new Experience({}));
+  }
+
   getSkills() {
     this.skillService.get().then(
       (response) => {
@@ -83,7 +88,7 @@ export class UserPage implements OnInit, ViewWillEnter {
       component: SelectMultipleComponent,
       componentProps: {
         title: 'Competências',
-        s: this.user.competencias.map((s) => s.id),
+        selecteds: this.user.competencias.map((s) => s.id),
         options: this.skills,
         acessor: 'nome',
       },
@@ -120,6 +125,10 @@ export class UserPage implements OnInit, ViewWillEnter {
         this.helperService.responseErrors(error);
       }
     );
+  }
+
+  removeExperience(index) {
+    this.user.experiencia.splice(index, 1);
   }
 
   delete() {

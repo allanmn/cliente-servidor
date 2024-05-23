@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             $fields['descricao'] = $this->descricao;
         } else {
             $fields['competencias'] = SkillResource::collection($this->whenLoaded('skills'));
-            $fields['experiencia'] = [];
+            $fields['experiencia'] = ExperienceResource::collection($this->whenLoaded('experiences'));
         }
 
         return $fields;

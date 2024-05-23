@@ -99,34 +99,122 @@
         </ion-card-content>
       </ion-card>
     </ion-col>
-    <ion-row style="padding: 0px 10px">
-      <ion-col size="12">
-        <ion-button
-          class="m0"
-          fill="solid"
-          shape="round"
-          color="success"
-          (click)="save()"
-        >
-          <ion-label class="text-bold">SALVAR</ion-label>
-        </ion-button>
-        <ion-button
-          id="delete"
-          class="m0 ml-10"
-          fill="solid"
-          shape="round"
-          color="danger"
-        >
-          <ion-label class="text-bold">APAGAR</ion-label>
-        </ion-button>
-        <ion-alert
-          mode="ios"
-          trigger="delete"
-          header="Essa ação é irreversível"
-          message="Tem certeza que deseja apagar seu usuário?"
-          [buttons]="alertButtons"
-        ></ion-alert>
-      </ion-col>
-    </ion-row>
+    <ion-col size="12" *ngIf="user.tipo === 'candidato'">
+      <ion-card color="tertiary">
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="12">
+              <div class="exp-header">
+                <span>Experiências</span>
+                <ion-button
+                  (click)="addExperience()"
+                  color="primary"
+                  size="small"
+                >
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="exp-container">
+            <ion-col
+              size="12"
+              class="ion-no-padding"
+              *ngFor="let exp of user.experiencia; let i = index"
+            >
+              <ion-card color="secondary" class="m0">
+                <ion-card-content>
+                  <ion-row>
+                    <ion-col size="12" size-md="6">
+                      <ion-label class="input-label">
+                        Nome da empresa
+                      </ion-label>
+                      <ion-input
+                        type="text"
+                        placeholder="Nome da empresa"
+                        class="input-light"
+                        [(ngModel)]="exp.nome_empresa"
+                      >
+                      </ion-input>
+                    </ion-col>
+                    <ion-col size="12" size-md="6">
+                      <ion-label class="input-label"> Cargo </ion-label>
+                      <ion-input
+                        type="text"
+                        placeholder="Cargo"
+                        class="input-light"
+                        [(ngModel)]="exp.cargo"
+                      >
+                      </ion-input>
+                    </ion-col>
+                    <ion-col size="12" size-md="6">
+                      <ion-label class="input-label"> Início </ion-label>
+                      <ion-input
+                        type="date"
+                        placeholder="Início"
+                        class="input-light"
+                        [(ngModel)]="exp.inicio"
+                      >
+                      </ion-input>
+                    </ion-col>
+                    <ion-col size="12" size-md="6">
+                      <ion-label class="input-label"> Fim </ion-label>
+                      <ion-input
+                        type="date"
+                        placeholder="Fim"
+                        class="input-light"
+                        [(ngModel)]="exp.fim"
+                      >
+                      </ion-input>
+                    </ion-col>
+                    <ion-col size="2">
+                      <ion-button
+                        (click)="removeExperience(i)"
+                        color="danger"
+                        shape="round"
+                      >
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                        <ion-label class="text-bold">Remover</ion-label>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="12" class="ion-no-padding">
+      <ion-row style="padding: 0px 10px">
+        <ion-col size="12">
+          <ion-button
+            class="m0"
+            fill="solid"
+            shape="round"
+            color="success"
+            (click)="save()"
+          >
+            <ion-label class="text-bold">SALVAR</ion-label>
+          </ion-button>
+          <ion-button
+            id="delete"
+            class="m0 ml-10"
+            fill="solid"
+            shape="round"
+            color="danger"
+          >
+            <ion-label class="text-bold">APAGAR</ion-label>
+          </ion-button>
+          <ion-alert
+            mode="ios"
+            trigger="delete"
+            header="Essa ação é irreversível"
+            message="Tem certeza que deseja apagar seu usuário?"
+            [buttons]="alertButtons"
+          ></ion-alert>
+        </ion-col>
+      </ion-row>
+    </ion-col>
   </ion-row>
 </ion-content>

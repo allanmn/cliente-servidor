@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome_empresa');
             $table->date('inicio');
-            $table->date('fim');
+            $table->date('fim')->nullable();
             $table->string('cargo');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
