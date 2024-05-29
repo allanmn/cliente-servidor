@@ -173,8 +173,8 @@ class UserController extends Controller
                 }
 
                 Experience::where('user_id', $user->id)
-                ->whereNotIn('id', $ids)
-                ->delete();
+                    ->whereNotIn('id', $ids)
+                    ->delete();
             }
         }
 
