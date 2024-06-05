@@ -31,6 +31,27 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/user/user.module').then((m) => m.UserPageModule),
   },
+  {
+    path: 'job-announcements',
+    loadChildren: () =>
+      import('./pages/job-announcements/index/index.module').then(
+        (m) => m.IndexPageModule
+      ),
+  },
+  {
+    path: 'job-announcements/create',
+    loadChildren: () =>
+      import('./pages/job-announcements/create/create.module').then(
+        (m) => m.CreatePageModule
+      ),
+  },
+  {
+    path: 'job-announcements/:id',
+    loadChildren: () =>
+      import('./pages/job-announcements/create/create.module').then(
+        (m) => m.CreatePageModule
+      ),
+  },
 ];
 
 @NgModule({

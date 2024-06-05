@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-menu-button mode="ios" slot="start"></ion-menu-button>
+    <ion-title (click)="debug()">Vagas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        mode="ios"
+        [routerLink]="['/job-announcements/create']"
+        color="dark"
+      >
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="get()">
+    <ion-refresher-content
+      pullingText="Atualizar"
+      refreshingSpinner="dots"
+      refreshingText="Atualizando"
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-row>
+    <ion-col class="ion-no-padding">
+      <ion-list class="no-border mb-0" lines="full" mode="ios">
+        <!-- header -->
+        <ion-item-divider color="primary" mode="md">
+          <ion-col size="2" size-md="1">ID</ion-col>
+          <ion-col>Título</ion-col>
+          <ion-col size="1">Ativo</ion-col>
+          <ion-col size="2" size-md="1"></ion-col>
+          <ion-col size="2" size-md="1"></ion-col>
+        </ion-item-divider>
+
+        <!-- items -->
+        <ion-list>
+          <ion-item *ngFor="let job of jobAnnouncements">
+            <ion-col size="2" size-md="1">#{{ job.id }}</ion-col>
+            <ion-col> {{ job.titulo }} </ion-col>
+            <ion-col size="1">
+              <ion-icon
+                name="radio-button-on"
+                [ngClass]="{'text-success': job.ativo, 'text-danger': !job.ativo}"
+              >
+              </ion-icon>
+              <span class="ion-hide-sm-down"
+                >{{ job.ativo ? 'Ativo' : 'Inativo' }}</span
+              >
+            </ion-col>
+            <ion-col size="2" size-md="1" class="text-right">
+              <ion-button
+                [routerLink]="['/job-announcements', job.id]"
+                routerDirection="forward"
+                expand="default"
+                color="primary"
+              >
+                <ion-icon name="pencil"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="2" size-md="1" class="text-right">
+              <ion-button
+                (click)="remove(job, $event)"
+                expand="block"
+                color="danger"
+              >
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-item>
+        </ion-list>
+
+        <ng-container *ngIf="loading">
+          <div *ngFor="let tr of trs">
+            <ion-skeleton-text
+              animated
+              style="width: 100%; height: 50px"
+            ></ion-skeleton-text>
+          </div>
+        </ng-container>
+
+        <ion-row
+          class="no-border ion-text-center"
+          *ngIf="total_of_data === jobAnnouncements.length && total_of_data>0"
+        >
+          <ion-col>
+            <ion-label color="medium" class="p20">
+              Todos os registros foram listados
+              <ion-icon name="thumbs-up" color="medium"></ion-icon>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row
+          class="ion-text-center"
+          color="light"
+          *ngIf="!loading && !jobAnnouncements.length"
+        >
+          <ion-col>
+            <ion-label padding-top padding-bottom>
+              Não há registros.
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

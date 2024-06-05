@@ -45,6 +45,12 @@ ion-textarea {
   --highlight-color-valid: none !important;
 }
 
+input.input-light {
+  padding: 10px 5px;
+  border-radius: 1rem;
+  border: none;
+}
+
 .input-select {
   background-color: var(--ion-color-light);
   border-radius: 1rem;
@@ -96,4 +102,16 @@ ion-menu {
 
 .text-danger {
   color: var(--ion-color-danger) !important;
+}
+
+.p6 {
+  padding: 10px 5px;
+}
+
+.br6 {
+  border-radius: 6px;
+}
+
+ion-label {
+  display: block;
 }

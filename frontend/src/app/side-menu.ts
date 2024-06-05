@@ -9,6 +9,6 @@ export const CandidatoItems: RouteInfo[] = [
 ];
 
 export const EmpresaItems: RouteInfo[] = [
-  { path: '/user', title: 'Vagas', icon: 'briefcase' },
+  { path: '/job-announcements', title: 'Vagas', icon: 'briefcase' },
   { path: '/user', title: 'Usuário', icon: 'person' },
 ];

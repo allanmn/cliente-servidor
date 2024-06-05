@@ -15,10 +15,14 @@ class JobAnnouncement extends Model
         'empresa_id',
         'titulo',
         'descricao',
-        'max_salario',
-        'min_salario',
+        'salario_max',
+        'salario_min',
         'ativo',
         'experiencia',
+    ];
+
+    protected $casts = [
+        'ativo' => 'boolean',
     ];
 
     public function empresa()

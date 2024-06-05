@@ -59,10 +59,10 @@ export class UserPage implements OnInit, ViewWillEnter {
   }
 
   ngOnInit() {
-    this.menuController.enable(true);
   }
 
   ionViewWillEnter() {
+    this.menuController.enable(true);
     this.user = this.userService.user;
 
     this.getSkills();

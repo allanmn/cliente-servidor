@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('description');
             $table->integer('experiencia');
-            $table->decimal('min_salario', 10, 2);
-            $table->decimal('max_salario', 10, 2);
+            $table->decimal('salario_min', 10, 2);
+            $table->decimal('salario_max', 10, 2)->nullable();
             $table->boolean('ativo')->default(true);
             $table->unsignedBigInteger('empresa_id');
             $table->timestamps();

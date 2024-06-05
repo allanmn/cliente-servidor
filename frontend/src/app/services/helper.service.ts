@@ -1,6 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ToastController } from '@ionic/angular';
+import {
+  LoadingController,
+  PopoverController,
+  ToastController,
+} from '@ionic/angular';
+import { ConfirmComponent } from '../components/confirm/confirm.component';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +16,8 @@ export class HelperService {
   constructor(
     private toastController: ToastController,
     private loadingController: LoadingController,
-    private router: Router
+    private router: Router,
+    private popoverController: PopoverController
   ) {}
 
   async toast(message: string, color: string = 'success', duration = 1500) {
@@ -60,5 +66,17 @@ export class HelperService {
     } else {
       return this.toast('Houve um erro ao processar sua requisição.', 'danger');
     }
+  }
+
+  async popover(eventPopover: any, title: string, buttons: Array<any>) {
+    return await this.popoverController.create({
+      component: ConfirmComponent,
+      event: eventPopover,
+      mode: 'ios',
+      componentProps: {
+        title: title,
+        buttons: buttons,
+      },
+    });
   }
 }
