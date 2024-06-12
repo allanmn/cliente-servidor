@@ -36,11 +36,11 @@ export class IndexPage implements OnInit, ViewWillEnter {
   ) {}
 
   ngOnInit() {
-    this.get();
   }
 
   ionViewWillEnter(): void {
     this.menuController.enable(true);
+    this.get();
   }
 
   async get() {
@@ -98,7 +98,6 @@ export class IndexPage implements OnInit, ViewWillEnter {
           if (index > -1) {
             this.jobAnnouncements.splice(index, 1);
           }
-          this.helperService.toast(response.mensagem, 'success');
         },
         (error) => {
           this.helperService.responseErrors(error);
