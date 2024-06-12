@@ -24,7 +24,7 @@ export class JobAnnouncement {
     experiencia = null,
     salario_min = null,
     salario_max = null,
-    ativo = null,
+    ativo = false,
     empresa_id = null,
     ramo = null,
   }) {
